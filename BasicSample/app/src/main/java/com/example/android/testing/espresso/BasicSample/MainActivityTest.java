@@ -25,8 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class MainActivityTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> activityScenarioRule =
-            new ActivityScenarioRule<>(MainActivity.class);
+    public ActivityScenarioRule<MainActivity> activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @Before
     public void setUp() {
@@ -66,5 +65,22 @@ public class MainActivityTest {
         onView(withId(R.id.activityChangeTextBtn)).perform(click());
         intended(hasComponent(ShowTextActivity.class.getName()));
         intended(hasExtra(ShowTextActivity.KEY_EXTRA_MESSAGE, "123"));
+    }
+
+    @Test
+    public void testChangeTextButton_AlphabeticInput() {
+        onView(withId(R.id.editTextUserInput)).perform(typeText("abcdef"));
+        closeSoftKeyboard();
+        onView(withId(R.id.changeTextBt)).perform(click());
+        onView(withId(R.id.textToBeChanged)).check(matches(withText("abcdef")));
+    }
+
+    @Test
+    public void testOpenActivityButton_AlphabeticInput() {
+        onView(withId(R.id.editTextUserInput)).perform(typeText("abcdef"));
+        closeSoftKeyboard();
+        onView(withId(R.id.activityChangeTextBtn)).perform(click());
+        intended(hasComponent(ShowTextActivity.class.getName()));
+        intended(hasExtra(ShowTextActivity.KEY_EXTRA_MESSAGE, "abcdef"));
     }
 }

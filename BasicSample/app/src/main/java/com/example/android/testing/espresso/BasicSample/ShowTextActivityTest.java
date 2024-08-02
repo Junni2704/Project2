@@ -30,4 +30,11 @@ public class ShowTextActivityTest {
         onView(withId(R.id.show_text_view)).check(matches(withText("123")));
     }
 
+    @Test
+    public void testShowTextActivity_AlphabeticInput() {
+        Intent intent = ShowTextActivity.newStartIntent(ApplicationProvider.getApplicationContext(), "abcdef");
+        ActivityScenario.launch(intent);
+        onView(withId(R.id.show_text_view)).check(matches(withText("abcdef")));
+    }
+
 }
