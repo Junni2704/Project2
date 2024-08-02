@@ -50,5 +50,21 @@ public class MainActivityTest {
         intended(hasComponent(ShowTextActivity.class.getName()));
         intended(hasExtra(ShowTextActivity.KEY_EXTRA_MESSAGE, ""));
     }
-    
+
+    @Test
+    public void testChangeTextButton_NumericInput() {
+        onView(withId(R.id.editTextUserInput)).perform(typeText("123"));
+        closeSoftKeyboard();
+        onView(withId(R.id.changeTextBt)).perform(click());
+        onView(withId(R.id.textToBeChanged)).check(matches(withText("123")));
+    }
+
+    @Test
+    public void testOpenActivityButton_NumericInput() {
+        onView(withId(R.id.editTextUserInput)).perform(typeText("123"));
+        closeSoftKeyboard();
+        onView(withId(R.id.activityChangeTextBtn)).perform(click());
+        intended(hasComponent(ShowTextActivity.class.getName()));
+        intended(hasExtra(ShowTextActivity.KEY_EXTRA_MESSAGE, "123"));
+    }
 }

@@ -23,4 +23,11 @@ public class ShowTextActivityTest {
         onView(withId(R.id.show_text_view)).check(matches(withText("")));
     }
 
+    @Test
+    public void testShowTextActivity_NumericInput() {
+        Intent intent = ShowTextActivity.newStartIntent(ApplicationProvider.getApplicationContext(), "123");
+        ActivityScenario.launch(intent);
+        onView(withId(R.id.show_text_view)).check(matches(withText("123")));
+    }
+
 }
